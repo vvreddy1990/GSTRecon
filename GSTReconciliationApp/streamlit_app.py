@@ -472,10 +472,9 @@ if section != "Settings":
                     theme='streamlit',
                     update_mode=GridUpdateMode.SELECTION_CHANGED | GridUpdateMode.VALUE_CHANGED,
                     allow_unsafe_jscode=True,
-                    fit_columns_on_grid_load=True,
+                    fit_columns_on_grid_load=False,
                     enable_enterprise_modules=True,
-                    height=600,
-                    width='100%'
+                    height=600
                 )
                 selected = grid_response['selected_rows']
                 # Bulk status update
