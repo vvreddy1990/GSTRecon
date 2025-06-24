@@ -127,7 +127,7 @@ section = st.sidebar.radio(
     "Navigation",
     ["Dashboard", "GSTR1", "GSTR2A", "GSTR2B", "Reports", "Data Overview", "Settings", "Help"],
     index=0,
-    format_func=lambda x: f"\ud83d\udcca {x}" if x == "Dashboard" else f"\u2699\ufe0f {x}" if x == "Settings" else x
+    format_func=lambda x: x  # No emojis, plain text only
 )
 
 # --- Header Bar ---
