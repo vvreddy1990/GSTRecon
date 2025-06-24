@@ -139,8 +139,8 @@ with col_title:
 with col_period:
     period = st.selectbox("Period", ["Apr 2024 - Mar 2025", "Apr 2023 - Mar 2024", "Custom"], key="period_select")
 with col_actions:
-    st.button("\ud83d\udd04 Refresh", key="refresh_btn")
-    st.button("\u2b07\ufe0f Download", key="download_btn")
+    st.button("Refresh", key="refresh_btn")
+    st.button("Download", key="download_btn")
 
 # --- File Upload and Reconciliation Trigger (always visible at top) ---
 st.markdown("---")
@@ -199,7 +199,7 @@ if st.session_state.uploaded_file is not None:
         settings = get_current_settings()
         if settings.get('auto_apply_settings', True):
             final_report = apply_settings_to_reconciliation(final_report, settings)
-            st.info("\u2705 Reconciliation settings applied to results.")
+            st.info("Reconciliation settings applied to results.")
         
         st.session_state.final_report = final_report
         st.session_state.reconciliation_complete = True
@@ -223,15 +223,15 @@ if section == "Settings":
         
         col1, col2 = st.columns(2)
         with col1:
-            if st.button("\ud83d\udd04 Apply Settings to Results", type="secondary"):
+            if st.button("Apply Settings to Results", type="secondary"):
                 settings = get_current_settings()
                 updated_report = apply_settings_to_reconciliation(st.session_state.final_report, settings)
                 st.session_state.final_report = updated_report
-                st.success("\u2705 Settings applied to existing reconciliation results!")
+                st.success("Settings applied to existing reconciliation results!")
                 st.experimental_rerun()
         
         with col2:
-            if st.button("\ud83d\udcca View Settings Impact", type="secondary"):
+            if st.button("View Settings Impact", type="secondary"):
                 settings = get_current_settings()
                 original_report = st.session_state.final_report.copy()
                 updated_report = apply_settings_to_reconciliation(original_report, settings)
@@ -502,7 +502,7 @@ if section != "Settings":
             if st.session_state.get('reconciliation_complete') and st.session_state.get('final_report') is not None:
                 render_unique_gst_report(st.session_state.final_report)
             elif st.session_state.get('df') is not None:
-                st.info("\ud83d\udccb Please run reconciliation first to generate the Unique GST Report.")
+                st.info("Please run reconciliation first to generate the Unique GST Report.")
                 st.markdown("""
                 ### About the Unique GST Report
                 
@@ -521,14 +521,14 @@ if section != "Settings":
                 - Assess financial impact of unmapped suppliers
                 
                 **Features:**
-                - \ud83d\udd0d Search and filter functionality
-                - \ud83d\udcca Interactive table with proper sorting (ascending/descending)
-                - \ud83d\udcbe Export to CSV/Excel
-                - \ud83d\udcc8 Detailed insights and analytics
-                - \ud83d\udcb0 Indian currency formatting (lakhs/crores)
+                - Search and filter functionality
+                - Interactive table with proper sorting (ascending/descending)
+                - Export to CSV/Excel
+                - Detailed insights and analytics
+                - Indian currency formatting (lakhs/crores)
                 """)
             else:
-                st.info("\ud83d\udccb Please upload your Excel file first to generate the Unique GST Report.")
+                st.info("Please upload your Excel file first to generate the Unique GST Report.")
                 st.markdown("""
                 ### About the Unique GST Report
                 
@@ -547,11 +547,11 @@ if section != "Settings":
                 - Assess financial impact of unmapped suppliers
                 
                 **Features:**
-                - \ud83d\udd0d Search and filter functionality
-                - \ud83d\udcca Interactive table with proper sorting (ascending/descending)
-                - \ud83d\udcbe Export to CSV/Excel
-                - \ud83d\udcc8 Detailed insights and analytics
-                - \ud83d\udcb0 Indian currency formatting (lakhs/crores)
+                - Search and filter functionality
+                - Interactive table with proper sorting (ascending/descending)
+                - Export to CSV/Excel
+                - Detailed insights and analytics
+                - Indian currency formatting (lakhs/crores)
                 """)
         # GSTR-2A Compliance Report sub-tab
         with transaction_tabs[2]:
@@ -591,14 +591,14 @@ if section != "Settings":
                                     summary_df.to_excel(writer, sheet_name='Compliance Summary', index=False)
                                 excel_data = output.getvalue()
                                 st.download_button(
-                                    label="\u2b07\ufe0f Download Compliance Summary (Excel)",
+                                    label="Download Compliance Summary (Excel)",
                                     data=excel_data,
                                     file_name=f"gstr2a_compliance_summary_{pd.Timestamp.now().strftime('%Y%m%d_%H%M%S')}.xlsx",
                                     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                                 )
                                 csv_data = summary_df.to_csv(index=False).encode('utf-8')
                                 st.download_button(
-                                    label="\u2b07\ufe0f Download Compliance Summary (CSV)",
+                                    label="Download Compliance Summary (CSV)",
                                     data=csv_data,
                                     file_name="gstr2a_compliance_summary.csv",
                                     mime="text/csv",
@@ -713,7 +713,7 @@ if section != "Settings":
                     compliance_summary.to_excel(writer, sheet_name='GSTR-2A Compliance Report', index=False)
             excel_data = output.getvalue()
             st.download_button(
-                label="\u2b07\ufe0f Download All Reports (Excel)",
+                label="Download All Reports (Excel)",
                 data=excel_data,
                 file_name="gst_reconciliation_reports.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
@@ -722,7 +722,7 @@ if section != "Settings":
             # --- CSV Download ---
             csv_data = final_report_df.to_csv(index=False).encode('utf-8')
             st.download_button(
-                label="\u2b07\ufe0f Download Final Report (CSV)",
+                label="Download Final Report (CSV)",
                 data=csv_data,
                 file_name="gst_reconciliation_report.csv",
                 mime="text/csv",
@@ -804,9 +804,9 @@ if section != "Settings":
             st.session_state.final_report = updated_df
             st.session_state.gstin_comment_sets = new_sets
             if total_updated > 0:
-                st.session_state.gstin_comment_message = (f"\u2705 Comments applied successfully! {total_updated} rows updated.", 'success')
+                st.session_state.gstin_comment_message = (f"Comments applied successfully! {total_updated} rows updated.", 'success')
             else:
-                st.session_state.gstin_comment_message = ("\u2139\ufe0f No rows matched the criteria. No comments were applied.", 'info')
+                st.session_state.gstin_comment_message = ("No rows matched the criteria. No comments were applied.", 'info')
             st.experimental_rerun()
         else:
             st.session_state.gstin_comment_sets = new_sets
